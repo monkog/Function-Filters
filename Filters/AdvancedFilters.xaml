@@ -1,0 +1,30 @@
+﻿<Window x:Class="Filters.AdvancedFilters"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:oxy="http://oxyplot.codeplex.com"
+        Title="Advanced Filters" Height="409" Width="500" HorizontalAlignment="Center" 
+        VerticalAlignment="Center" ResizeMode="NoResize" Loaded="AdvancedFilters_Loaded">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF838383" Offset="0"/>
+                <GradientStop Color="#FFCDCDCD" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <ComboBox Name="m_channelComboBox" HorizontalAlignment="Left" Margin="114,29,0,0" VerticalAlignment="Top" Width="187" SelectedIndex="0" FontSize="12" FontWeight="DemiBold">
+            <ComboBoxItem Content="All channels"/>
+            <ComboBoxItem Content="Red channel"/>
+            <ComboBoxItem Content="Green channel"/>
+            <ComboBoxItem Content="Blue channel"/>
+        </ComboBox>
+        <Button Name="m_okButton" Content="OK" HorizontalAlignment="Left" Margin="409,29,0,0" VerticalAlignment="Top" Width="75" FontSize="12" FontWeight="DemiBold" Click="m_okButton_Click"/>
+        <Button Name="m_cancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="409,56,0,0" VerticalAlignment="Top" Width="75" FontWeight="DemiBold" Click="m_cancelButton_Click"/>
+        <Label Content="Channel:" HorizontalAlignment="Left" Margin="29,23,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="ExtraBold"/>
+        <oxy:Plot x:Name="m_advancedFunction" Model="{Binding m_publicPlotModel}" Margin="10,59,90,10" Background="WhiteSmoke" PlotAreaBorderThickness="2">
+            <oxy:Plot.Axes>
+                <oxy:LinearAxis Position="Left" Minimum="0" Maximum="255" FontSize="8" FontWeight="DemiBold"/>
+                <oxy:LinearAxis Position="Bottom" Minimum="0" Maximum="255" FontSize="8" FontWeight="DemiBold"/>
+            </oxy:Plot.Axes>
+        </oxy:Plot>
+    </Grid>
+</Window>

@@ -1,0 +1,33 @@
+﻿<Window x:Class="Filters.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Filters Demo" Height="350" Width="525" WindowState="Maximized">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="225*"/>
+            <ColumnDefinition Width="225*"/>
+            <ColumnDefinition Width="54*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF838383" Offset="0"/>
+                <GradientStop Color="#FFCDCDCD" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Border Margin="10,10,10,20" BorderThickness="2" BorderBrush="Black" Background="LightGray" Grid.Column="0">
+            <Canvas Name="m_sourcePhoto" Margin="4,4,4,4" Background="WhiteSmoke" x:FieldModifier="public"/>
+        </Border>
+        <Border Margin="10,10,10,20" BorderThickness="2" BorderBrush="Black" Background="LightGray" Grid.Column="1">
+            <Canvas Name="m_outputPhoto" Margin="4,4,4,4" Background="WhiteSmoke" x:FieldModifier="public"/>
+        </Border>
+        <Button Name="m_openButton" Content="Open file..." Grid.Column="2" Margin="0,29,10,0" VerticalAlignment="Top" Height="40" FontSize="16" Click="m_openButton_Click"/>
+        <Button Name="m_saveButton" Content="Save as..." Grid.Column="2" Margin="0,74,10,0" VerticalAlignment="Top" Height="40" FontSize="16" Click="m_saveButton_Click"/>
+        <Button Name="m_advancedButton" Grid.Column="2" Margin="1,121,9,0" VerticalAlignment="Top" Height="80" Click="m_advancedButton_Click">
+            <TextBlock Text="Advanced functions..." FontSize="16" TextWrapping="Wrap" TextAlignment="Center"/>
+        </Button>
+        <Button Name="m_filterButton" Grid.Column="2" Margin="1,209,9,0" VerticalAlignment="Top" Height="80" Click="m_filterButton_Click" >
+            <TextBlock Text="Choose filter..." FontSize="16" TextWrapping="Wrap" TextAlignment="Center"/>
+        </Button>
+    </Grid>
+</Window>
+
