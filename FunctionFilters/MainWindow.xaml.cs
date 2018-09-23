@@ -4,7 +4,6 @@ using System.IO;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Filters;
 using FunctionFilters.Helpers;
 using FunctionFilters.ImageManipulators;
 using Microsoft.Win32;
@@ -141,7 +140,7 @@ namespace FunctionFilters
 						OutputPhoto.Background = SourceBitmap.Negate();
 						break;
 					case ImageFilter.Poster:
-						MakePoster();
+						OutputPhoto.Background = SourceBitmap.ConvertToPoster();
 						break;
 				}
 			}

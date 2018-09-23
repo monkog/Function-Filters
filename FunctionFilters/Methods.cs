@@ -7,32 +7,6 @@ namespace FunctionFilters
 {
     public partial class MainWindow
     {
-
-        /// <summary>
-        /// Makes the loaded photo look like a poster.
-        /// </summary>
-        public void MakePoster()
-        {
-            int position = 0;
-            int[] rgbColors = new int[256];
-            for (int i = 0; i < 5; i++)
-                for (int j = 0; j < 51; j++)
-                    rgbColors[position++] = i * 51;
-            rgbColors[position] = 255;
-
-            Bitmap outputBitmap = new Bitmap(SourceBitmap.Width, SourceBitmap.Height);
-
-            for (int i = 0; i < outputBitmap.Width; i++)
-                for (int j = 0; j < outputBitmap.Height; j++)
-                {
-                    Color color = SourceBitmap.GetPixel(i, j);
-                    color = Color.FromArgb(color.A, rgbColors[color.R], rgbColors[color.G], rgbColors[color.B]);
-                    outputBitmap.SetPixel(i, j, color);
-                }
-
-            OutputPhoto.Background = outputBitmap.CreateImageBrush();
-        }
-
         /// <summary>
         /// For all colors sets maximum saturation or minimum saturation.
         /// </summary>
