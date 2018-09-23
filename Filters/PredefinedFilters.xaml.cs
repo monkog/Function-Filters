@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Windows.Input;
 using Filters.Helpers;
 
 namespace Filters
@@ -6,47 +7,30 @@ namespace Filters
 	/// <summary>
 	/// Interaction logic for PredefinedFilters.xaml
 	/// </summary>
+	[ExcludeFromCodeCoverage]
 	public partial class PredefinedFilters
 	{
 		private readonly MainWindow _owner;
+
+		public ICommand FilterCommand => new RelayCommand<ImageFilter>(ApplyFilter);
 
 		public PredefinedFilters(MainWindow owner)
 		{
 			InitializeComponent();
 			Owner = owner;
 			_owner = owner;
+			DataContext = this;
+
 			ColorDotsCanvas.Background = Properties.Resources.ColorDots.CreateImageBrush();
 			ColorMixCanvas.Background = Properties.Resources.ColorMix.CreateImageBrush();
 			NegateCanvas.Background = Properties.Resources.Negative.CreateImageBrush();
 			PosterCanvas.Background = Properties.Resources.Poster.CreateImageBrush();
 		}
 
-		/// <summary>
-		/// Changes the loaded photo to its negative.
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void NegateButton_Click(object sender, RoutedEventArgs e)
+		private void ApplyFilter(ImageFilter filter)
 		{
-			_owner.Negate();
-			Close();
-		}
-
-		private void PosterButton_Click(object sender, RoutedEventArgs e)
-		{
-			_owner.MakePoster();
-			Close();
-		}
-
-		private void ColorMixButton_Click(object sender, RoutedEventArgs e)
-		{
-			_owner.MixColors();
-			Close();
-		}
-
-		private void ColorDotsButton_Click(object sender, RoutedEventArgs e)
-		{
-			_owner.ColorDots();
+			_owner.Filter = filter;
+			DialogResult = true;
 			Close();
 		}
 	}

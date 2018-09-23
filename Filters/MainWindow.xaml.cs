@@ -18,13 +18,15 @@ namespace Filters
 		public Bitmap SourceBitmap;
 		readonly ImageBrush _whiteSmokeBitmap;
 
+		public ImageFilter Filter { get; set; }
+
 		public MainWindow()
 		{
 			InitializeComponent();
 			SourceBitmap = null;
-			Bitmap grayBitmap = new Bitmap(1, 1);
-			grayBitmap.SetPixel(0, 0, Color.WhiteSmoke);
-			_whiteSmokeBitmap = grayBitmap.CreateImageBrush();
+			var bitmap = new Bitmap(1, 1);
+			bitmap.SetPixel(0, 0, Color.WhiteSmoke);
+			_whiteSmokeBitmap = bitmap.CreateImageBrush();
 		}
 
 		private void OpenButton_Click(object sender, RoutedEventArgs e)
@@ -113,16 +115,33 @@ namespace Filters
 			if (SourceBitmap != null)
 			{
 				var advancedFiltersWindow = new AdvancedFilters(this);
-				advancedFiltersWindow.Show();
+				advancedFiltersWindow.ShowDialog();
 			}
 		}
 
 		private void FilterButton_Click(object sender, RoutedEventArgs e)
 		{
-			if (SourceBitmap != null)
+			if (SourceBitmap == null) return;
+
+			PredefinedFilters predefinedFiltersWindow = new PredefinedFilters(this);
+			var result = predefinedFiltersWindow.ShowDialog();
+			if (result == true)
 			{
-				PredefinedFilters predefinedFiltersWindow = new PredefinedFilters(this);
-				predefinedFiltersWindow.Show();
+				switch (Filter)
+				{
+					case ImageFilter.ColorDots:
+						ColorDots();
+						break;
+					case ImageFilter.ColorMix:
+						MixColors();
+						break;
+					case ImageFilter.Negate:
+						Negate();
+						break;
+					case ImageFilter.Poster:
+						MakePoster();
+						break;
+				}
 			}
 		}
 	}

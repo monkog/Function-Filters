@@ -80,6 +80,8 @@
     </Compile>
     <Compile Include="Helpers\BitmapExtensions.cs" />
     <Compile Include="Helpers\ColorExtensions.cs" />
+    <Compile Include="Helpers\RelayCommand.cs" />
+    <Compile Include="ImageFilter.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
