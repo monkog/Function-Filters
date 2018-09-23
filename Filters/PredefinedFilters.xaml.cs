@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Filters.Helpers;
 
 namespace Filters
 {
@@ -14,6 +15,10 @@ namespace Filters
 			InitializeComponent();
 			Owner = owner;
 			_owner = owner;
+			ColorDotsCanvas.Background = Properties.Resources.ColorDots.CreateImageBrush();
+			ColorMixCanvas.Background = Properties.Resources.ColorMix.CreateImageBrush();
+			NegateCanvas.Background = Properties.Resources.Negative.CreateImageBrush();
+			PosterCanvas.Background = Properties.Resources.Poster.CreateImageBrush();
 		}
 
 		/// <summary>
@@ -43,14 +48,6 @@ namespace Filters
 		{
 			_owner.colorDots();
 			Close();
-		}
-
-		private void Window_Loaded_1(object sender, RoutedEventArgs e)
-		{
-			ColorDotsCanvas.Background = MainWindow.createImageBrushFromBitmap(Properties.Resources.ColorDots);
-			ColorMixCanvas.Background = MainWindow.createImageBrushFromBitmap(Properties.Resources.ColorMix);
-			NegateCanvas.Background = MainWindow.createImageBrushFromBitmap(Properties.Resources.Negative);
-			PosterCanvas.Background = MainWindow.createImageBrushFromBitmap(Properties.Resources.Poster);
 		}
 	}
 }

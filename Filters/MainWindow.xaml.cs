@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Filters.Helpers;
 using Microsoft.Win32;
 using Color = System.Drawing.Color;
 
@@ -23,7 +24,7 @@ namespace Filters
             SourceBitmap = null;
             Bitmap grayBitmap = new Bitmap(1, 1);
             grayBitmap.SetPixel(0, 0, Color.WhiteSmoke);
-            _whiteSmokeBitmap = createImageBrushFromBitmap(grayBitmap);
+            _whiteSmokeBitmap = BitmapExtensions.CreateImageBrush(grayBitmap);
         }
 
         private void OpenButton_Click(object sender, RoutedEventArgs e)

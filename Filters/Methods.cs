@@ -5,29 +5,13 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-
+using Filters.Helpers;
 using Color = System.Drawing.Color;
 
 namespace Filters
 {
     public partial class MainWindow
     {
-        /// <summary>
-        /// Creates BitmapImage from provided Bitmap.
-        /// </summary>
-        /// <param name="bitmap">Provided Bitmap</param>
-        /// <returns>Converted BitmapImage</returns>
-        static public ImageBrush createImageBrushFromBitmap(Bitmap bitmap)
-        {
-            BitmapSource bitmapSource = Imaging.CreateBitmapSourceFromHBitmap(
-                bitmap.GetHbitmap()
-                , IntPtr.Zero
-                , Int32Rect.Empty
-                , BitmapSizeOptions.FromEmptyOptions());
-
-            return new ImageBrush(bitmapSource);
-        }
-
         /// <summary>
         /// Creates Bitmap from the provided BitmapImage.
         /// </summary>
@@ -61,7 +45,7 @@ namespace Filters
                     outputBitmap.SetPixel(i, j, color);
                 }
 
-            OutputPhoto.Background = createImageBrushFromBitmap(outputBitmap);
+            OutputPhoto.Background = BitmapExtensions.CreateImageBrush(outputBitmap);
         }
 
         /// <summary>
@@ -86,7 +70,7 @@ namespace Filters
                     outputBitmap.SetPixel(i, j, color);
                 }
 
-            OutputPhoto.Background = createImageBrushFromBitmap(outputBitmap);
+            OutputPhoto.Background = BitmapExtensions.CreateImageBrush(outputBitmap);
         }
 
         /// <summary>
@@ -115,7 +99,7 @@ namespace Filters
                     outputBitmap.SetPixel(i, j, color);
                 }
 
-            OutputPhoto.Background = createImageBrushFromBitmap(outputBitmap);
+            OutputPhoto.Background = BitmapExtensions.CreateImageBrush(outputBitmap);
         }
 
         /// <summary>
@@ -142,7 +126,7 @@ namespace Filters
                     outputBitmap.SetPixel(i, j, color);
                 }
 
-            OutputPhoto.Background = createImageBrushFromBitmap(outputBitmap);
+            OutputPhoto.Background = BitmapExtensions.CreateImageBrush(outputBitmap);
         }
 
         #region Saving files.

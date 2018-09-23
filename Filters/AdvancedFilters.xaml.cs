@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Filters.Helpers;
 using Filters.MVVM;
 using OxyPlot;
 using Point = System.Windows.Point;
@@ -34,21 +35,21 @@ namespace Filters
 			
             _outputBitmap = new Bitmap(_owner.SourceBitmap);
 
-            m_advancedFunction.DefaultTrackerTemplate = null;
+            AdvancedFunction.DefaultTrackerTemplate = null;
             _rgbColorsTable = new int[256];
             _selectedIndex = 0;
-            m_channelComboBox.SelectionChanged += ChannelComboBox_SelectionChanged;
-            m_advancedFunction.MouseDown += m_advancedFunction_MouseDown;
+            ChannelComboBox.SelectionChanged += ChannelComboBox_SelectionChanged;
+            AdvancedFunction.MouseDown += AdvancedFunctionMouseDown;
         }
 
-        void m_advancedFunction_MouseDown(object sender, MouseButtonEventArgs e)
+        void AdvancedFunctionMouseDown(object sender, MouseButtonEventArgs e)
         {
-            Point point = Mouse.GetPosition(m_advancedFunction);
+            Point point = Mouse.GetPosition(AdvancedFunction);
             _viewModel.CurrentLineSeries.Points.Add(new DataPoint(point.X, point.Y));
             _viewModel.UpdateModel();
         }
 
-        private void m_okButton_Click(object sender, RoutedEventArgs e)
+        private void OkButton_Click(object sender, RoutedEventArgs e)
         {
             ApplyFunction();
             Close();
@@ -102,9 +103,9 @@ namespace Filters
                     break;
             }
 
-            _selectedIndex = m_channelComboBox.SelectedIndex;
+            _selectedIndex = ChannelComboBox.SelectedIndex;
             _outputBitmap = outputBitmap;
-	        _owner.OutputPhoto.Background = MainWindow.createImageBrushFromBitmap(outputBitmap);
+	        _owner.OutputPhoto.Background = outputBitmap.CreateImageBrush();
         }
 
         /// <summary>
