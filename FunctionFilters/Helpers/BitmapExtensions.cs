@@ -7,7 +7,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace Filters.Helpers
+namespace FunctionFilters.Helpers
 {
 	[ExcludeFromCodeCoverage]
 	public static class BitmapExtensions

@@ -1,4 +1,4 @@
-﻿namespace Filters.Helpers
+﻿namespace FunctionFilters.Helpers
 {
 	public static class ColorExtensions
 	{

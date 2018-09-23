@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Filters
+namespace FunctionFilters
 {
     /// <summary>
     /// Interaction logic for App.xaml

@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Windows.Input;
-using Filters.Helpers;
+using FunctionFilters.Helpers;
 
-namespace Filters
+namespace FunctionFilters
 {
 	/// <summary>
 	/// Interaction logic for PredefinedFilters.xaml
@@ -10,11 +10,11 @@ namespace Filters
 	[ExcludeFromCodeCoverage]
 	public partial class PredefinedFilters
 	{
-		private readonly MainWindow _owner;
+		private readonly FunctionFilters.MainWindow _owner;
 
 		public ICommand FilterCommand => new RelayCommand<ImageFilter>(ApplyFilter);
 
-		public PredefinedFilters(MainWindow owner)
+		public PredefinedFilters(FunctionFilters.MainWindow owner)
 		{
 			InitializeComponent();
 			Owner = owner;

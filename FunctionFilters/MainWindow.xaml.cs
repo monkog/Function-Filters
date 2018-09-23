@@ -4,11 +4,13 @@ using System.IO;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Filters.Helpers;
+using Filters;
+using FunctionFilters.Helpers;
+using FunctionFilters.ImageManipulators;
 using Microsoft.Win32;
 using Color = System.Drawing.Color;
 
-namespace Filters
+namespace FunctionFilters
 {
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
@@ -136,7 +138,7 @@ namespace Filters
 						MixColors();
 						break;
 					case ImageFilter.Negate:
-						Negate();
+						OutputPhoto.Background = SourceBitmap.Negate();
 						break;
 					case ImageFilter.Poster:
 						MakePoster();

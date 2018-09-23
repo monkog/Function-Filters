@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2016
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionFiltersTests", "FunctionFiltersTests\FunctionFiltersTests.csproj", "{4BA3C412-3CAD-4EF9-BA36-F0F6D387AC02}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FunctionFilters", "FunctionFilters\FunctionFilters.csproj", "{C2A293C0-9E58-457C-8C9F-57B8363229CA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4BA3C412-3CAD-4EF9-BA36-F0F6D387AC02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BA3C412-3CAD-4EF9-BA36-F0F6D387AC02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BA3C412-3CAD-4EF9-BA36-F0F6D387AC02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BA3C412-3CAD-4EF9-BA36-F0F6D387AC02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2A293C0-9E58-457C-8C9F-57B8363229CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2A293C0-9E58-457C-8C9F-57B8363229CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2A293C0-9E58-457C-8C9F-57B8363229CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2A293C0-9E58-457C-8C9F-57B8363229CA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B8ABE864-E1B2-4835-A3DE-FB8B70ECB5E1}
+	EndGlobalSection
+EndGlobal

@@ -1,4 +1,4 @@
-﻿namespace Filters
+﻿namespace FunctionFilters
 {
 	/// <summary>
 	/// Defines available image filters.

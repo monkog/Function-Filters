@@ -7,8 +7,8 @@
     <ProjectGuid>{C2A293C0-9E58-457C-8C9F-57B8363229CA}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Filters</RootNamespace>
-    <AssemblyName>Filters</AssemblyName>
+    <RootNamespace>FunctionFilters</RootNamespace>
+    <AssemblyName>FunctionFilters</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -82,6 +82,7 @@
     <Compile Include="Helpers\ColorExtensions.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="ImageFilter.cs" />
+    <Compile Include="ImageManipulators\NegationManipulator.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

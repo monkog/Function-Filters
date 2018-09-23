@@ -1,29 +1,12 @@
 ﻿using System;
 using System.Drawing;
-using Filters.Helpers;
+using FunctionFilters.Helpers;
 using Color = System.Drawing.Color;
 
-namespace Filters
+namespace FunctionFilters
 {
     public partial class MainWindow
     {
-        /// <summary>
-        /// Converts image to its negative.
-        /// </summary>
-        public void Negate()
-        {
-            Bitmap outputBitmap = new Bitmap(SourceBitmap.Width, SourceBitmap.Height);
-
-            for (int i = 0; i < outputBitmap.Width; i++)
-                for (int j = 0; j < outputBitmap.Height; j++)
-                {
-                    Color color = SourceBitmap.GetPixel(i, j);
-                    color = Color.FromArgb(color.A, 255 - color.R, 255 - color.G, 255 - color.B);
-                    outputBitmap.SetPixel(i, j, color);
-                }
-
-            OutputPhoto.Background = outputBitmap.CreateImageBrush();
-        }
 
         /// <summary>
         /// Makes the loaded photo look like a poster.

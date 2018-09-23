@@ -3,12 +3,13 @@ using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Filters.Helpers;
+using Filters;
 using Filters.MVVM;
+using FunctionFilters.Helpers;
 using OxyPlot;
 using Point = System.Windows.Point;
 
-namespace Filters
+namespace FunctionFilters
 {
     /// <summary>
     /// Interaction logic for AdvancedFilters.xaml

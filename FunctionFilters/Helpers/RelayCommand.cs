@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Filters.Helpers
+namespace FunctionFilters.Helpers
 {
 	public class RelayCommand<T> : ICommand
 	{
