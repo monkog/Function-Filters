@@ -42,3 +42,4 @@ Debug/
 *.suo
 packages/
 *.coverage
+packages/
