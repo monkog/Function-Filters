@@ -51,17 +51,17 @@ namespace Filters
         /// </summary>
         public void negate()
         {
-            Bitmap outputBitmap = new Bitmap((int)m_sourceBitmap.Width, (int)m_sourceBitmap.Height);
+            Bitmap outputBitmap = new Bitmap((int)SourceBitmap.Width, (int)SourceBitmap.Height);
 
             for (int i = 0; i < outputBitmap.Width; i++)
                 for (int j = 0; j < outputBitmap.Height; j++)
                 {
-                    Color color = m_sourceBitmap.GetPixel(i, j);
+                    Color color = SourceBitmap.GetPixel(i, j);
                     color = Color.FromArgb(color.A, 255 - color.R, 255 - color.G, 255 - color.B);
                     outputBitmap.SetPixel(i, j, color);
                 }
 
-            m_outputPhoto.Background = createImageBrushFromBitmap(outputBitmap);
+            OutputPhoto.Background = createImageBrushFromBitmap(outputBitmap);
         }
 
         /// <summary>
@@ -76,17 +76,17 @@ namespace Filters
                     rgbColors[position++] = i * 51;
             rgbColors[position] = 255;
 
-            Bitmap outputBitmap = new Bitmap((int)m_sourceBitmap.Width, (int)m_sourceBitmap.Height);
+            Bitmap outputBitmap = new Bitmap((int)SourceBitmap.Width, (int)SourceBitmap.Height);
 
             for (int i = 0; i < outputBitmap.Width; i++)
                 for (int j = 0; j < outputBitmap.Height; j++)
                 {
-                    Color color = m_sourceBitmap.GetPixel(i, j);
+                    Color color = SourceBitmap.GetPixel(i, j);
                     color = Color.FromArgb(color.A, rgbColors[color.R], rgbColors[color.G], rgbColors[color.B]);
                     outputBitmap.SetPixel(i, j, color);
                 }
 
-            m_outputPhoto.Background = createImageBrushFromBitmap(outputBitmap);
+            OutputPhoto.Background = createImageBrushFromBitmap(outputBitmap);
         }
 
         /// <summary>
@@ -105,17 +105,17 @@ namespace Filters
                 value = Math.Abs(value - 256);
             }
 
-            Bitmap outputBitmap = new Bitmap((int)m_sourceBitmap.Width, (int)m_sourceBitmap.Height);
+            Bitmap outputBitmap = new Bitmap((int)SourceBitmap.Width, (int)SourceBitmap.Height);
 
             for (int i = 0; i < outputBitmap.Width; i++)
                 for (int j = 0; j < outputBitmap.Height; j++)
                 {
-                    Color color = m_sourceBitmap.GetPixel(i, j);
+                    Color color = SourceBitmap.GetPixel(i, j);
                     color = Color.FromArgb(color.A, rgbColors[color.R], rgbColors[color.G], rgbColors[color.B]);
                     outputBitmap.SetPixel(i, j, color);
                 }
 
-            m_outputPhoto.Background = createImageBrushFromBitmap(outputBitmap);
+            OutputPhoto.Background = createImageBrushFromBitmap(outputBitmap);
         }
 
         /// <summary>
@@ -132,17 +132,17 @@ namespace Filters
             for (int i = 0; i < 30; i++)
                 rgbColors[random.Next()%256] = random.Next()%256;
 
-            Bitmap outputBitmap = new Bitmap((int)m_sourceBitmap.Width, (int)m_sourceBitmap.Height);
+            Bitmap outputBitmap = new Bitmap((int)SourceBitmap.Width, (int)SourceBitmap.Height);
 
             for (int i = 0; i < outputBitmap.Width; i++)
                 for (int j = 0; j < outputBitmap.Height; j++)
                 {
-                    Color color = m_sourceBitmap.GetPixel(i, j);
+                    Color color = SourceBitmap.GetPixel(i, j);
                     color = Color.FromArgb(color.A, rgbColors[color.R], rgbColors[color.G], rgbColors[color.B]);
                     outputBitmap.SetPixel(i, j, color);
                 }
 
-            m_outputPhoto.Background = createImageBrushFromBitmap(outputBitmap);
+            OutputPhoto.Background = createImageBrushFromBitmap(outputBitmap);
         }
 
         #region Saving files.

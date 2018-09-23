@@ -18,9 +18,9 @@
             <ComboBoxItem Content="Blue channel"/>
         </ComboBox>
         <Button Name="m_okButton" Content="OK" HorizontalAlignment="Left" Margin="409,29,0,0" VerticalAlignment="Top" Width="75" FontSize="12" FontWeight="DemiBold" Click="m_okButton_Click"/>
-        <Button Name="m_cancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="409,56,0,0" VerticalAlignment="Top" Width="75" FontWeight="DemiBold" Click="m_cancelButton_Click"/>
+        <Button Name="m_cancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="409,56,0,0" VerticalAlignment="Top" Width="75" FontWeight="DemiBold" Click="CancelButton_Click"/>
         <Label Content="Channel:" HorizontalAlignment="Left" Margin="29,23,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="ExtraBold"/>
-        <oxy:Plot x:Name="m_advancedFunction" Model="{Binding m_publicPlotModel}" Margin="10,59,90,10" Background="WhiteSmoke" PlotAreaBorderThickness="2">
+        <oxy:Plot x:Name="m_advancedFunction" Model="{Binding PlotModel}" Margin="10,59,90,10" Background="WhiteSmoke" PlotAreaBorderThickness="2">
             <oxy:Plot.Axes>
                 <oxy:LinearAxis Position="Left" Minimum="0" Maximum="255" FontSize="8" FontWeight="DemiBold"/>
                 <oxy:LinearAxis Position="Bottom" Minimum="0" Maximum="255" FontSize="8" FontWeight="DemiBold"/>

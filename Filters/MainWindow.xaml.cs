@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Microsoft.Win32;
 using Color = System.Drawing.Color;
 
 namespace Filters
@@ -11,31 +12,33 @@ namespace Filters
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
-        public Bitmap m_sourceBitmap;
-        ImageBrush m_whiteSmokeBitmap;
+        public Bitmap SourceBitmap;
+	    readonly ImageBrush _whiteSmokeBitmap;
 
         public MainWindow()
         {
             InitializeComponent();
-            m_sourceBitmap = null;
+            SourceBitmap = null;
             Bitmap grayBitmap = new Bitmap(1, 1);
             grayBitmap.SetPixel(0, 0, Color.WhiteSmoke);
-            m_whiteSmokeBitmap = createImageBrushFromBitmap(grayBitmap);
+            _whiteSmokeBitmap = createImageBrushFromBitmap(grayBitmap);
         }
 
-        private void m_openButton_Click(object sender, RoutedEventArgs e)
+        private void OpenButton_Click(object sender, RoutedEventArgs e)
         {
             // Create OpenFileDialog 
-            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
+	        var openFileDialog = new OpenFileDialog
+	        {
+		        Filter = "all image files(*.bmp; *.gif; *.jpeg; *.jpg; *.png)|*.bmp;*.gif; *.jpeg; *.jpg; *.png"
+		                 + "|BMP Files (*.bmp)|*.bmp|GIF Files (*.gif)|*.gif|JPEG Files (*.jpeg)|*.jpeg|JPG Files (*.jpg)|*.jpg|PNG Files (*.png)|*.png"
+	        };
 
-            // Set filter for file extension and default file extension 
-            openFileDialog.Filter = "all image files(*.bmp; *.gif; *.jpeg; *.jpg; *.png)|*.bmp;*.gif; *.jpeg; *.jpg; *.png"
-                + "|BMP Files (*.bmp)|*.bmp|GIF Files (*.gif)|*.gif|JPEG Files (*.jpeg)|*.jpeg|JPG Files (*.jpg)|*.jpg|PNG Files (*.png)|*.png";
+	        // Set filter for file extension and default file extension 
 
-            // Display OpenFileDialog by calling ShowDialog method 
-            Nullable<bool> result = openFileDialog.ShowDialog();
+	        // Display OpenFileDialog by calling ShowDialog method 
+            bool? result = openFileDialog.ShowDialog();
 
             // Get the selected file name and display in a TextBox 
             if (result == true)
@@ -44,20 +47,23 @@ namespace Filters
                 ImageBrush imageBrush = new ImageBrush();
                 BitmapImage bitmapImage = new BitmapImage(new Uri(fileName));
                 imageBrush.ImageSource = bitmapImage;
-                m_sourcePhoto.Background = imageBrush;
-                m_sourceBitmap = createBitmapFromBitmapImage(bitmapImage);
-                m_outputPhoto.Background = m_whiteSmokeBitmap;
+                SourcePhoto.Background = imageBrush;
+                SourceBitmap = createBitmapFromBitmapImage(bitmapImage);
+                OutputPhoto.Background = _whiteSmokeBitmap;
             }
         }
 
-        private void m_saveButton_Click(object sender, RoutedEventArgs e)
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (m_sourceBitmap == null || m_outputPhoto.Background == m_whiteSmokeBitmap)
+            if (SourceBitmap == null || OutputPhoto.Background == _whiteSmokeBitmap)
                 return;
 
-            Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
-            saveFileDialog.Filter = "BMP Files (*.bmp)|*.bmp|GIF Files (*.gif)|*.gif|JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png";
-            Nullable<bool> result = saveFileDialog.ShowDialog();
+	        var saveFileDialog = new SaveFileDialog
+	        {
+		        Filter =
+			        "BMP Files (*.bmp)|*.bmp|GIF Files (*.gif)|*.gif|JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png"
+	        };
+	        bool? result = saveFileDialog.ShowDialog();
 
             if (result == true)
             {
@@ -67,37 +73,35 @@ namespace Filters
                 switch (extension)
                 {
                     case ".bmp":
-                        saveToBmp(m_outputPhoto, fileName);
+                        saveToBmp(OutputPhoto, fileName);
                         break;
                     case ".gif":
-                        saveToGif(m_outputPhoto, fileName);
+                        saveToGif(OutputPhoto, fileName);
                         break;
                     case ".jpeg":
-                        saveToJpeg(m_outputPhoto, fileName);
+                        saveToJpeg(OutputPhoto, fileName);
                         break;
                     case ".png":
-                        saveToPng(m_outputPhoto, fileName);
+                        saveToPng(OutputPhoto, fileName);
                         break;
                 }
             }
         }
 
-        private void m_advancedButton_Click(object sender, RoutedEventArgs e)
+        private void AdvancedButton_Click(object sender, RoutedEventArgs e)
         {
-            if (m_sourceBitmap != null)
+            if (SourceBitmap != null)
             {
-                AdvancedFilters advancedFiltersWindow = new AdvancedFilters();
-                advancedFiltersWindow.Owner = this;
+                var advancedFiltersWindow = new AdvancedFilters(this);
                 advancedFiltersWindow.Show();
             }
         }
 
-        private void m_filterButton_Click(object sender, RoutedEventArgs e)
+        private void FilterButton_Click(object sender, RoutedEventArgs e)
         {
-            if (m_sourceBitmap != null)
+            if (SourceBitmap != null)
             {
-                PredefinedFilters predefinedFiltersWindow = new PredefinedFilters();
-                predefinedFiltersWindow.Owner = this;
+                PredefinedFilters predefinedFiltersWindow = new PredefinedFilters(this);
                 predefinedFiltersWindow.Show();
             }
         }

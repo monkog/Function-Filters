@@ -15,17 +15,17 @@
             </LinearGradientBrush>
         </Grid.Background>
         <Border Margin="10,10,10,20" BorderThickness="2" BorderBrush="Black" Background="LightGray" Grid.Column="0">
-            <Canvas Name="m_sourcePhoto" Margin="4,4,4,4" Background="WhiteSmoke" x:FieldModifier="public"/>
+            <Canvas Name="SourcePhoto" Margin="4,4,4,4" Background="WhiteSmoke" x:FieldModifier="public"/>
         </Border>
         <Border Margin="10,10,10,20" BorderThickness="2" BorderBrush="Black" Background="LightGray" Grid.Column="1">
-            <Canvas Name="m_outputPhoto" Margin="4,4,4,4" Background="WhiteSmoke" x:FieldModifier="public"/>
+            <Canvas Name="OutputPhoto" Margin="4,4,4,4" Background="WhiteSmoke" x:FieldModifier="public"/>
         </Border>
-        <Button Name="m_openButton" Content="Open file..." Grid.Column="2" Margin="0,29,10,0" VerticalAlignment="Top" Height="40" FontSize="16" Click="m_openButton_Click"/>
-        <Button Name="m_saveButton" Content="Save as..." Grid.Column="2" Margin="0,74,10,0" VerticalAlignment="Top" Height="40" FontSize="16" Click="m_saveButton_Click"/>
-        <Button Name="m_advancedButton" Grid.Column="2" Margin="1,121,9,0" VerticalAlignment="Top" Height="80" Click="m_advancedButton_Click">
+        <Button Name="OpenButton" Content="Open file..." Grid.Column="2" Margin="0,29,10,0" VerticalAlignment="Top" Height="40" FontSize="16" Click="OpenButton_Click"/>
+        <Button Name="SaveButton" Content="Save as..." Grid.Column="2" Margin="0,74,10,0" VerticalAlignment="Top" Height="40" FontSize="16" Click="SaveButton_Click"/>
+        <Button Name="AdvancedButton" Grid.Column="2" Margin="1,121,9,0" VerticalAlignment="Top" Height="80" Click="AdvancedButton_Click">
             <TextBlock Text="Advanced functions..." FontSize="16" TextWrapping="Wrap" TextAlignment="Center"/>
         </Button>
-        <Button Name="m_filterButton" Grid.Column="2" Margin="1,209,9,0" VerticalAlignment="Top" Height="80" Click="m_filterButton_Click" >
+        <Button Name="FilterButton" Grid.Column="2" Margin="1,209,9,0" VerticalAlignment="Top" Height="80" Click="FilterButton_Click" >
             <TextBlock Text="Choose filter..." FontSize="16" TextWrapping="Wrap" TextAlignment="Center"/>
         </Button>
     </Grid>

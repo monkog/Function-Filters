@@ -1,77 +1,75 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Filters.MVVM;
 using OxyPlot;
-using OxyPlot.Wpf;
 using Point = System.Windows.Point;
-using Series = OxyPlot.Series.Series;
 
 namespace Filters
 {
     /// <summary>
     /// Interaction logic for AdvancedFilters.xaml
     /// </summary>
-    public partial class AdvancedFilters : Window
+    public partial class AdvancedFilters
     {
-        private ViewModel viewModel;
-        private int[] rgbColorsTable;
-        private int m_selectedIndex;
-        private Bitmap m_outputBitmap;
+	    private readonly MainWindow _owner;
+	    private ViewModel _viewModel;
+        private int[] _rgbColorsTable;
+        private int _selectedIndex;
+        private Bitmap _outputBitmap;
 
-        public AdvancedFilters()
+        public AdvancedFilters(MainWindow owner)
         {
-            InitializeComponent();
+	        _owner = owner;
+	        Owner = owner;
+	        InitializeComponent();
         }
 
         private void AdvancedFilters_Loaded(object sender, RoutedEventArgs e)
         {
-            viewModel = new ViewModel();
-            DataContext = viewModel;
-
-            var mainWindow = Owner as MainWindow;
-            m_outputBitmap = new Bitmap(mainWindow.m_sourceBitmap);
+            _viewModel = new ViewModel();
+            DataContext = _viewModel;
+			
+            _outputBitmap = new Bitmap(_owner.SourceBitmap);
 
             m_advancedFunction.DefaultTrackerTemplate = null;
-            rgbColorsTable = new int[256];
-            m_selectedIndex = 0;
-            m_channelComboBox.SelectionChanged += m_channelComboBox_SelectionChanged;
+            _rgbColorsTable = new int[256];
+            _selectedIndex = 0;
+            m_channelComboBox.SelectionChanged += ChannelComboBox_SelectionChanged;
             m_advancedFunction.MouseDown += m_advancedFunction_MouseDown;
         }
 
         void m_advancedFunction_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Point point = Mouse.GetPosition(m_advancedFunction);
-            viewModel.m_currentLineSeries.Points.Add(new DataPoint(point.X, point.Y));
-            viewModel.updateModel();
+            _viewModel.CurrentLineSeries.Points.Add(new DataPoint(point.X, point.Y));
+            _viewModel.UpdateModel();
         }
 
         private void m_okButton_Click(object sender, RoutedEventArgs e)
         {
-            applyFunction();
+            ApplyFunction();
             Close();
         }
 
-        private void applyFunction()
+        private void ApplyFunction()
         {
-            var mainWindow = Owner as MainWindow;
-            updateColorValuesTables();
+            UpdateColorValuesTables();
 
-            Bitmap outputBitmap = new Bitmap(m_outputBitmap.Width, m_outputBitmap.Height);
+            Bitmap outputBitmap = new Bitmap(_outputBitmap.Width, _outputBitmap.Height);
 
-            switch (m_selectedIndex)
+            switch (_selectedIndex)
             {
                 case 0:
                     for (int i = 0; i < outputBitmap.Width; i++)
                         for (int j = 0; j < outputBitmap.Height; j++)
                         {
-                            Color color = m_outputBitmap.GetPixel(i, j);
-                            Color newColor = Color.FromArgb(color.A, rgbColorsTable[color.R]
-                                , rgbColorsTable[color.G]
-                                , rgbColorsTable[color.B]);
+                            Color color = _outputBitmap.GetPixel(i, j);
+                            Color newColor = Color.FromArgb(color.A, _rgbColorsTable[color.R]
+                                , _rgbColorsTable[color.G]
+                                , _rgbColorsTable[color.B]);
                             outputBitmap.SetPixel(i, j, newColor);
                         }
                     break;
@@ -79,8 +77,8 @@ namespace Filters
                     for (int i = 0; i < outputBitmap.Width; i++)
                         for (int j = 0; j < outputBitmap.Height; j++)
                         {
-                            Color color = m_outputBitmap.GetPixel(i, j);
-                            Color newColor = Color.FromArgb(color.A, rgbColorsTable[color.R], color.G, color.B);
+                            Color color = _outputBitmap.GetPixel(i, j);
+                            Color newColor = Color.FromArgb(color.A, _rgbColorsTable[color.R], color.G, color.B);
                             outputBitmap.SetPixel(i, j, newColor);
                         }
                     break;
@@ -88,8 +86,8 @@ namespace Filters
                     for (int i = 0; i < outputBitmap.Width; i++)
                         for (int j = 0; j < outputBitmap.Height; j++)
                         {
-                            Color color = m_outputBitmap.GetPixel(i, j);
-                            Color newColor = Color.FromArgb(color.A, color.R, rgbColorsTable[color.G], color.B);
+                            Color color = _outputBitmap.GetPixel(i, j);
+                            Color newColor = Color.FromArgb(color.A, color.R, _rgbColorsTable[color.G], color.B);
                             outputBitmap.SetPixel(i, j, newColor);
                         }
                     break;
@@ -97,24 +95,24 @@ namespace Filters
                     for (int i = 0; i < outputBitmap.Width; i++)
                         for (int j = 0; j < outputBitmap.Height; j++)
                         {
-                            Color color = m_outputBitmap.GetPixel(i, j);
-                            Color newColor = Color.FromArgb(color.A, color.R, color.G, rgbColorsTable[color.B]);
+                            Color color = _outputBitmap.GetPixel(i, j);
+                            Color newColor = Color.FromArgb(color.A, color.R, color.G, _rgbColorsTable[color.B]);
                             outputBitmap.SetPixel(i, j, newColor);
                         }
                     break;
             }
 
-            m_selectedIndex = m_channelComboBox.SelectedIndex;
-            m_outputBitmap = outputBitmap;
-            mainWindow.m_outputPhoto.Background = MainWindow.createImageBrushFromBitmap(outputBitmap);
+            _selectedIndex = m_channelComboBox.SelectedIndex;
+            _outputBitmap = outputBitmap;
+	        _owner.OutputPhoto.Background = MainWindow.createImageBrushFromBitmap(outputBitmap);
         }
 
         /// <summary>
         /// Updates the corresponding R, G, B values from the plot.
         /// </summary>
-        private void updateColorValuesTables()
+        private void UpdateColorValuesTables()
         {
-            IList<IDataPoint> pointsList = viewModel.getPoints();
+            IList<IDataPoint> pointsList = _viewModel.GetPoints();
             for (int i = 0; i < pointsList.Count - 1; i++)
             {
                 // y = ax + b
@@ -129,12 +127,12 @@ namespace Filters
 
                 for (int j = (int)pointsList[i].X; j <= (int)pointsList[i + 1].X; j++)
                 {
-                    rgbColorsTable[j] = (int)toRGB(a * j + b);
+                    _rgbColorsTable[j] = (int)ToRgb(a * j + b);
                 }
             }
         }
 
-        private void m_cancelButton_Click(object sender, RoutedEventArgs e)
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
@@ -144,7 +142,7 @@ namespace Filters
         /// </summary>
         /// <param name="n">R,G,B value in range [0,1]</param>
         /// <returns>R,G,B value in range [0,255]</returns>
-        private static double toRGB(double n)
+        private static double ToRgb(double n)
         {
             var result = 1.0 * n;
 
@@ -156,14 +154,14 @@ namespace Filters
             return 0;
         }
 
-        private void m_channelComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ChannelComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (viewModel.m_currentLineSeries.Points.Count == 2)
+            if (_viewModel.CurrentLineSeries.Points.Count == 2)
                 return;
 
-            applyFunction();
-            viewModel = new ViewModel();
-            DataContext = viewModel;
+            ApplyFunction();
+            _viewModel = new ViewModel();
+            DataContext = _viewModel;
         }
     }
 }

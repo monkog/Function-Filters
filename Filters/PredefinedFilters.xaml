@@ -9,27 +9,27 @@
                 <GradientStop Color="#FFCDCDCD" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        <Button Name="m_negateButton" Width="200" Height="200" Margin="27,30,267,242" Click="m_negateButton_Click">
+        <Button Name="NegateButton" Width="200" Height="200" Margin="27,30,267,242" Click="NegateButton_Click">
             <Canvas Width="200" Height="200">
-                <Canvas Name="m_negateCanvas" Width="145" Height="145" Canvas.Left="25"/>
+                <Canvas Name="NegateCanvas" Width="145" Height="145" Canvas.Left="25"/>
                 <TextBlock Text="Negative" FontSize="30" FontWeight="ExtraBold" Canvas.Left="34" Canvas.Top="150"/>
             </Canvas>
         </Button>
-        <Button Name="m_posterButton" Width="200" Height="200" Margin="270,30,24,242" Click="m_posterButton_Click">
+        <Button Name="PosterButton" Width="200" Height="200" Margin="270,30,24,242" Click="PosterButton_Click">
             <Canvas Width="200" Height="200">
-                <Canvas Name="m_posterCanvas" Width="145" Height="145" Canvas.Left="25"/>
+                <Canvas Name="PosterCanvas" Width="145" Height="145" Canvas.Left="25"/>
                 <TextBlock Text="Poster" FontSize="30" FontWeight="ExtraBold" Canvas.Left="57" Canvas.Top="150"/>
             </Canvas>
         </Button>
-        <Button Name="m_colorMixButton" Width="200" Height="200" Margin="27,262,267,10" Click="m_colorMixButton_Click" >
+        <Button Name="ColorMixButton" Width="200" Height="200" Margin="27,262,267,10" Click="ColorMixButton_Click" >
             <Canvas Width="200" Height="200">
-                <Canvas Name="m_colorMixCanvas" Width="145" Height="145" Canvas.Left="25"/>
+                <Canvas Name="ColorMixCanvas" Width="145" Height="145" Canvas.Left="25"/>
                 <TextBlock Text="Color mix" FontSize="30" FontWeight="ExtraBold" Canvas.Left="28" Canvas.Top="150"/>
             </Canvas>
         </Button>
-        <Button Name="m_colorDotsButton" Width="200" Height="200" Margin="270,262,24,10" Click="m_colorDotsButton_Click" >
+        <Button Name="ColorDotsButton" Width="200" Height="200" Margin="270,262,24,10" Click="ColorDotsButton_Click" >
             <Canvas Width="200" Height="200">
-                <Canvas Name="m_colorDotsCanvas" Width="145" Height="145" Canvas.Left="25"/>
+                <Canvas Name="ColorDotsCanvas" Width="145" Height="145" Canvas.Left="25"/>
                 <TextBlock Text="Color dots" FontSize="30" FontWeight="ExtraBold" Canvas.Left="25" Canvas.Top="150"/>
             </Canvas>
         </Button>
