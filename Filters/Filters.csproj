@@ -121,16 +121,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\chips.png" />
+    <None Include="Resources\ColorDots.PNG" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\negative.png" />
+    <None Include="Resources\ColorMix.PNG" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\poster.png" />
+    <None Include="Resources\Negative.PNG" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\saturation.png" />
+    <None Include="Resources\Poster.PNG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -47,10 +47,10 @@ namespace Filters
 
 		private void Window_Loaded_1(object sender, RoutedEventArgs e)
 		{
-			ColorDotsCanvas.Background = MainWindow.createImageBrushFromBitmap(Properties.Resources.chips);
-			ColorMixCanvas.Background = MainWindow.createImageBrushFromBitmap(Properties.Resources.saturation);
-			NegateCanvas.Background = MainWindow.createImageBrushFromBitmap(Properties.Resources.negative);
-			PosterCanvas.Background = MainWindow.createImageBrushFromBitmap(Properties.Resources.poster);
+			ColorDotsCanvas.Background = MainWindow.createImageBrushFromBitmap(Properties.Resources.ColorDots);
+			ColorMixCanvas.Background = MainWindow.createImageBrushFromBitmap(Properties.Resources.ColorMix);
+			NegateCanvas.Background = MainWindow.createImageBrushFromBitmap(Properties.Resources.Negative);
+			PosterCanvas.Background = MainWindow.createImageBrushFromBitmap(Properties.Resources.Poster);
 		}
 	}
 }
