@@ -3,11 +3,11 @@ using System.Windows.Input;
 
 namespace FunctionFilters.Helpers
 {
-	public class RelayCommand : ICommand
+	public class RelayCommand<T> : ICommand
 	{
-		private readonly Action _action;
+		private readonly Action<T> _action;
 
-		public RelayCommand(Action action)
+		public RelayCommand(Action<T> action)
 		{
 			_action = action;
 		}
@@ -21,7 +21,7 @@ namespace FunctionFilters.Helpers
 
 		public void Execute(object parameter)
 		{
-			_action();
+			_action((T)parameter);
 		}
 	}
 }
