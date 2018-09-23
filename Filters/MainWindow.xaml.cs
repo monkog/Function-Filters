@@ -10,101 +10,120 @@ using Color = System.Drawing.Color;
 
 namespace Filters
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow
-    {
-        public Bitmap SourceBitmap;
-	    readonly ImageBrush _whiteSmokeBitmap;
+	/// <summary>
+	/// Interaction logic for MainWindow.xaml
+	/// </summary>
+	public partial class MainWindow
+	{
+		public Bitmap SourceBitmap;
+		readonly ImageBrush _whiteSmokeBitmap;
 
-        public MainWindow()
-        {
-            InitializeComponent();
-            SourceBitmap = null;
-            Bitmap grayBitmap = new Bitmap(1, 1);
-            grayBitmap.SetPixel(0, 0, Color.WhiteSmoke);
-            _whiteSmokeBitmap = BitmapExtensions.CreateImageBrush(grayBitmap);
-        }
+		public MainWindow()
+		{
+			InitializeComponent();
+			SourceBitmap = null;
+			Bitmap grayBitmap = new Bitmap(1, 1);
+			grayBitmap.SetPixel(0, 0, Color.WhiteSmoke);
+			_whiteSmokeBitmap = grayBitmap.CreateImageBrush();
+		}
 
-        private void OpenButton_Click(object sender, RoutedEventArgs e)
-        {
-            // Create OpenFileDialog 
-	        var openFileDialog = new OpenFileDialog
-	        {
-		        Filter = "all image files(*.bmp; *.gif; *.jpeg; *.jpg; *.png)|*.bmp;*.gif; *.jpeg; *.jpg; *.png"
-		                 + "|BMP Files (*.bmp)|*.bmp|GIF Files (*.gif)|*.gif|JPEG Files (*.jpeg)|*.jpeg|JPG Files (*.jpg)|*.jpg|PNG Files (*.png)|*.png"
-	        };
+		private void OpenButton_Click(object sender, RoutedEventArgs e)
+		{
+			var openFileDialog = new OpenFileDialog
+			{
+				Filter = "all image files(*.bmp; *.gif; *.jpeg; *.jpg; *.png)|*.bmp;*.gif; *.jpeg; *.jpg; *.png"
+						 + "|BMP Files (*.bmp)|*.bmp|GIF Files (*.gif)|*.gif|JPEG Files (*.jpeg)|*.jpeg|JPG Files (*.jpg)|*.jpg|PNG Files (*.png)|*.png"
+			};
 
-	        // Set filter for file extension and default file extension 
+			bool? result = openFileDialog.ShowDialog();
 
-	        // Display OpenFileDialog by calling ShowDialog method 
-            bool? result = openFileDialog.ShowDialog();
+			if (result == true)
+			{
+				string fileName = openFileDialog.FileName;
+				ImageBrush imageBrush = new ImageBrush();
+				BitmapImage bitmapImage = new BitmapImage(new Uri(fileName));
+				imageBrush.ImageSource = bitmapImage;
+				SourcePhoto.Background = imageBrush;
+				SourceBitmap = bitmapImage.CreateBitmap();
+				OutputPhoto.Background = _whiteSmokeBitmap;
+			}
+		}
 
-            // Get the selected file name and display in a TextBox 
-            if (result == true)
-            {
-                string fileName = openFileDialog.FileName;
-                ImageBrush imageBrush = new ImageBrush();
-                BitmapImage bitmapImage = new BitmapImage(new Uri(fileName));
-                imageBrush.ImageSource = bitmapImage;
-                SourcePhoto.Background = imageBrush;
-                SourceBitmap = createBitmapFromBitmapImage(bitmapImage);
-                OutputPhoto.Background = _whiteSmokeBitmap;
-            }
-        }
+		private void SaveButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (SourceBitmap == null || OutputPhoto.Background == _whiteSmokeBitmap)
+				return;
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (SourceBitmap == null || OutputPhoto.Background == _whiteSmokeBitmap)
-                return;
+			var saveFileDialog = new SaveFileDialog
+			{
+				Filter =
+					"BMP Files (*.bmp)|*.bmp|GIF Files (*.gif)|*.gif|JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png"
+			};
+			bool? result = saveFileDialog.ShowDialog();
 
-	        var saveFileDialog = new SaveFileDialog
-	        {
-		        Filter =
-			        "BMP Files (*.bmp)|*.bmp|GIF Files (*.gif)|*.gif|JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png"
-	        };
-	        bool? result = saveFileDialog.ShowDialog();
+			if (result == true)
+			{
+				string fileName = saveFileDialog.FileName;
+				string extension = Path.GetExtension(fileName);
+				BitmapEncoder encoder;
 
-            if (result == true)
-            {
-                string fileName = saveFileDialog.FileName;
-                string extension = Path.GetExtension(fileName);
+				switch (extension)
+				{
+					case ".bmp":
+						encoder = new BmpBitmapEncoder();
+						break;
+					case ".gif":
+						encoder = new GifBitmapEncoder();
+						break;
+					case ".jpeg":
+						encoder = new JpegBitmapEncoder();
+						break;
+					case ".png":
+						encoder = new PngBitmapEncoder();
+						break;
+					default:
+						throw new NotSupportedException($"The {extension} is not supported.");
+				}
 
-                switch (extension)
-                {
-                    case ".bmp":
-                        saveToBmp(OutputPhoto, fileName);
-                        break;
-                    case ".gif":
-                        saveToGif(OutputPhoto, fileName);
-                        break;
-                    case ".jpeg":
-                        saveToJpeg(OutputPhoto, fileName);
-                        break;
-                    case ".png":
-                        saveToPng(OutputPhoto, fileName);
-                        break;
-                }
-            }
-        }
+				SaveFile(OutputPhoto, fileName, encoder);
+			}
+		}
 
-        private void AdvancedButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (SourceBitmap != null)
-            {
-                var advancedFiltersWindow = new AdvancedFilters(this);
-                advancedFiltersWindow.Show();
-            }
-        }
+		/// <summary>
+		/// Saves image with a chosen extension.
+		/// </summary>
+		/// <param name="visual">Image to save</param>
+		/// <param name="fileName">Output file name</param>
+		/// <param name="encoder">Matching encoder</param>
+		void SaveFile(FrameworkElement visual, string fileName, BitmapEncoder encoder)
+		{
+			RenderTargetBitmap bitmap = new RenderTargetBitmap((int)visual.ActualWidth, (int)visual.ActualHeight, 96, 96, PixelFormats.Pbgra32);
+			bitmap.Render(visual);
+			BitmapFrame frame = BitmapFrame.Create(bitmap);
+			encoder.Frames.Add(frame);
 
-        private void FilterButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (SourceBitmap != null)
-            {
-                PredefinedFilters predefinedFiltersWindow = new PredefinedFilters(this);
-                predefinedFiltersWindow.Show();
-            }
-        }
-    }
+			using (var stream = File.Create(fileName))
+			{
+				encoder.Save(stream);
+			}
+		}
+
+		private void AdvancedButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (SourceBitmap != null)
+			{
+				var advancedFiltersWindow = new AdvancedFilters(this);
+				advancedFiltersWindow.Show();
+			}
+		}
+
+		private void FilterButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (SourceBitmap != null)
+			{
+				PredefinedFilters predefinedFiltersWindow = new PredefinedFilters(this);
+				predefinedFiltersWindow.Show();
+			}
+		}
+	}
 }

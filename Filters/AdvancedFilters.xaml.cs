@@ -128,7 +128,7 @@ namespace Filters
 
                 for (int j = (int)pointsList[i].X; j <= (int)pointsList[i + 1].X; j++)
                 {
-                    _rgbColorsTable[j] = (int)ToRgb(a * j + b);
+                    _rgbColorsTable[j] = (a * j + b).ToRgb();
                 }
             }
         }
@@ -136,23 +136,6 @@ namespace Filters
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
-        }
-
-        /// <summary>
-        /// Returns R,G and B values in range [0,255].
-        /// </summary>
-        /// <param name="n">R,G,B value in range [0,1]</param>
-        /// <returns>R,G,B value in range [0,255]</returns>
-        private static double ToRgb(double n)
-        {
-            var result = 1.0 * n;
-
-            if (result >= 0)
-                if (result <= 255)
-                    return result;
-                else
-                    return 255;
-            return 0;
         }
 
         private void ChannelComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

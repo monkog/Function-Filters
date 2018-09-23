@@ -28,25 +28,25 @@ namespace Filters
 		/// <param name="e"></param>
 		private void NegateButton_Click(object sender, RoutedEventArgs e)
 		{
-			_owner.negate();
+			_owner.Negate();
 			Close();
 		}
 
 		private void PosterButton_Click(object sender, RoutedEventArgs e)
 		{
-			_owner.makePoster();
+			_owner.MakePoster();
 			Close();
 		}
 
 		private void ColorMixButton_Click(object sender, RoutedEventArgs e)
 		{
-			_owner.mixColors();
+			_owner.MixColors();
 			Close();
 		}
 
 		private void ColorDotsButton_Click(object sender, RoutedEventArgs e)
 		{
-			_owner.colorDots();
+			_owner.ColorDots();
 			Close();
 		}
 	}
