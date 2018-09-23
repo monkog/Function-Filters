@@ -16,12 +16,15 @@ namespace Filters.MVVM
         public LineSeries CurrentLineSeries;
         private PlotModel _plotModel;
         public PlotModel PlotModel
-        {
-            get => _plotModel;
-	        set { _plotModel = value; OnPropertyChanged("PlotModel"); }
-        }
+		{
+			get
+			{
+				return _plotModel;
+			}
+			set { _plotModel = value; OnPropertyChanged("PlotModel"); }
+		}
 
-        public ViewModel()
+		public ViewModel()
         {
             _isMouseMoving = false;
             PlotModel = new PlotModel();
