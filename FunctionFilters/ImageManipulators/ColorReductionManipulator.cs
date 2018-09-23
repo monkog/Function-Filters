@@ -1,12 +1,30 @@
-﻿using System.Drawing;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
 using System.Windows.Media;
 using FunctionFilters.Helpers;
 using Color = System.Drawing.Color;
 
 namespace FunctionFilters.ImageManipulators
 {
+	/// <summary>
+	/// Reduces the number of colors to 64.
+	/// </summary>
+	[ExcludeFromCodeCoverage]
 	public static class ColorReductionManipulator
 	{
+		private static readonly int[] ColorMap;
+
+		static ColorReductionManipulator()
+		{
+			ColorMap = new int[256];
+
+			// Map all possible color values to four values.
+			int position = 0;
+			for (int i = 0; i < 4; i++)
+				for (int j = 0; j < 64; j++)
+					ColorMap[position++] = i * 64;
+		}
+
 		/// <summary>
 		/// Reduces the number of colors in the provided bitmap, making it look like a poster.
 		/// </summary>
@@ -14,21 +32,14 @@ namespace FunctionFilters.ImageManipulators
 		/// <returns>Poster-like image brush.</returns>
 		public static ImageBrush ConvertToPoster(this Bitmap source)
 		{
-			int position = 0;
-			int[] rgbColors = new int[256];
-			for (int i = 0; i < 5; i++)
-				for (int j = 0; j < 51; j++)
-					rgbColors[position++] = i * 51;
-			rgbColors[position] = 255;
-
-			Bitmap outputBitmap = new Bitmap(source.Width, source.Height);
+			var outputBitmap = new Bitmap(source.Width, source.Height);
 
 			for (int i = 0; i < outputBitmap.Width; i++)
 				for (int j = 0; j < outputBitmap.Height; j++)
 				{
-					Color color = source.GetPixel(i, j);
-					color = Color.FromArgb(color.A, rgbColors[color.R], rgbColors[color.G], rgbColors[color.B]);
-					outputBitmap.SetPixel(i, j, color);
+					var color = source.GetPixel(i, j);
+					var resultColor = Color.FromArgb(color.A, ColorMap[color.R], ColorMap[color.G], ColorMap[color.B]);
+					outputBitmap.SetPixel(i, j, resultColor);
 				}
 
 			return outputBitmap.CreateImageBrush();
