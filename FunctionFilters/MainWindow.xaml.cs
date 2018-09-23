@@ -134,7 +134,7 @@ namespace FunctionFilters
 						ColorDots();
 						break;
 					case ImageFilter.ColorMix:
-						MixColors();
+						OutputPhoto.Background = SourceBitmap.MixColors();
 						break;
 					case ImageFilter.Negate:
 						OutputPhoto.Background = SourceBitmap.Negate();
