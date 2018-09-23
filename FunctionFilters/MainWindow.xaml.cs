@@ -131,7 +131,7 @@ namespace FunctionFilters
 				switch (Filter)
 				{
 					case ImageFilter.ColorDots:
-						ColorDots();
+						OutputPhoto.Background = SourceBitmap.ColorDots();
 						break;
 					case ImageFilter.ColorMix:
 						OutputPhoto.Background = SourceBitmap.MixColors();
