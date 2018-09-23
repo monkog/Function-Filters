@@ -1,7 +1,7 @@
 # Function Filters
 Apply one of the predefined function filter to an image or create your own.
 
-##Examples
+## Examples
 ### Negation
 ![](./.Docs/Negative.PNG)
 ### Poster
