@@ -33,6 +33,7 @@ namespace FunctionFilters
 		public MainWindow()
 		{
 			InitializeComponent();
+			DataContext = this;
 			SourceBitmap = null;
 			var bitmap = new Bitmap(1, 1);
 			bitmap.SetPixel(0, 0, Color.WhiteSmoke);
@@ -106,9 +107,17 @@ namespace FunctionFilters
 			var frame = BitmapFrame.Create(bitmap);
 			encoder.Frames.Add(frame);
 
-			using (var stream = File.Create(fileName))
+			try
 			{
-				encoder.Save(stream);
+				using (var stream = File.Create(fileName))
+				{
+					encoder.Save(stream);
+				}
+
+			}
+			catch (Exception)
+			{
+				MessageBox.Show("Cannot access the file. Try again later.");
 			}
 		}
 
