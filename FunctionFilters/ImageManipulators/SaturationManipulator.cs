@@ -2,8 +2,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows.Media;
-using FunctionFilters.Helpers;
-using Color = System.Drawing.Color;
 
 namespace FunctionFilters.ImageManipulators
 {
@@ -32,17 +30,7 @@ namespace FunctionFilters.ImageManipulators
 		/// </summary>
 		public static ImageBrush MixColors(this Bitmap source)
 		{
-			var outputBitmap = new Bitmap(source.Width, source.Height);
-
-			for (int i = 0; i < outputBitmap.Width; i++)
-				for (int j = 0; j < outputBitmap.Height; j++)
-				{
-					var color = source.GetPixel(i, j);
-					var resultColor = Color.FromArgb(color.A, ColorMap[color.R], ColorMap[color.G], ColorMap[color.B]);
-					outputBitmap.SetPixel(i, j, resultColor);
-				}
-
-			return outputBitmap.CreateImageBrush();
+			return source.ApplyManipulation(ColorMap);
 		}
 	}
 }

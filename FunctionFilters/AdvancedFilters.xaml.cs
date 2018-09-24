@@ -15,7 +15,7 @@ namespace FunctionFilters
     {
 	    private readonly MainWindow _owner;
 	    private PlotViewModel _plotViewModel;
-        private int[] _rgbColorsTable;
+        private int[] _colorMap;
         private int _selectedIndex;
         private Bitmap _outputBitmap;
 
@@ -34,7 +34,7 @@ namespace FunctionFilters
             _outputBitmap = new Bitmap(_owner.SourceBitmap);
 
             AdvancedFunction.DefaultTrackerTemplate = null;
-            _rgbColorsTable = new int[256];
+            _colorMap = new int[256];
             _selectedIndex = 0;
         }
 
@@ -51,9 +51,9 @@ namespace FunctionFilters
                         for (int j = 0; j < outputBitmap.Height; j++)
                         {
                             Color color = _outputBitmap.GetPixel(i, j);
-                            Color newColor = Color.FromArgb(color.A, _rgbColorsTable[color.R]
-                                , _rgbColorsTable[color.G]
-                                , _rgbColorsTable[color.B]);
+                            Color newColor = Color.FromArgb(color.A, _colorMap[color.R]
+                                , _colorMap[color.G]
+                                , _colorMap[color.B]);
                             outputBitmap.SetPixel(i, j, newColor);
                         }
                     break;
@@ -62,7 +62,7 @@ namespace FunctionFilters
                         for (int j = 0; j < outputBitmap.Height; j++)
                         {
                             Color color = _outputBitmap.GetPixel(i, j);
-                            Color newColor = Color.FromArgb(color.A, _rgbColorsTable[color.R], color.G, color.B);
+                            Color newColor = Color.FromArgb(color.A, _colorMap[color.R], color.G, color.B);
                             outputBitmap.SetPixel(i, j, newColor);
                         }
                     break;
@@ -71,7 +71,7 @@ namespace FunctionFilters
                         for (int j = 0; j < outputBitmap.Height; j++)
                         {
                             Color color = _outputBitmap.GetPixel(i, j);
-                            Color newColor = Color.FromArgb(color.A, color.R, _rgbColorsTable[color.G], color.B);
+                            Color newColor = Color.FromArgb(color.A, color.R, _colorMap[color.G], color.B);
                             outputBitmap.SetPixel(i, j, newColor);
                         }
                     break;
@@ -80,7 +80,7 @@ namespace FunctionFilters
                         for (int j = 0; j < outputBitmap.Height; j++)
                         {
                             Color color = _outputBitmap.GetPixel(i, j);
-                            Color newColor = Color.FromArgb(color.A, color.R, color.G, _rgbColorsTable[color.B]);
+                            Color newColor = Color.FromArgb(color.A, color.R, color.G, _colorMap[color.B]);
                             outputBitmap.SetPixel(i, j, newColor);
                         }
                     break;
@@ -111,7 +111,7 @@ namespace FunctionFilters
 
                 for (int j = (int)pointsList[i].X; j <= (int)pointsList[i + 1].X; j++)
                 {
-                    _rgbColorsTable[j] = (a * j + b).ToRgb();
+                    _colorMap[j] = (a * j + b).ToRgb();
                 }
             }
         }
