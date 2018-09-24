@@ -42,13 +42,13 @@
 				<RowDefinition Height="Auto"/>
 				<RowDefinition Height="Auto"/>
 			</Grid.RowDefinitions>
-			<Button Grid.Row="0" Name="OpenButton" Content="Open file..." Click="OpenButton_Click"/>
-			<Button Grid.Row="1" Name="SaveButton" Content="Save as..." Click="SaveButton_Click"/>
+			<Button Grid.Row="0" Name="OpenButton" Content="Open file..." Command="{Binding OpenCommand}"/>
+			<Button Grid.Row="1" Name="SaveButton" Content="Save as..." Command="{Binding SaveCommand}"/>
 
 			<GridSplitter Grid.Row="2"/>
 
-			<Button Grid.Row="3" Name="AdvancedButton" Content="Advanced functions..." Click="AdvancedButton_Click"/>
-			<Button Grid.Row="4" Name="FilterButton" Content="Choose filter..." Click="FilterButton_Click"/>
+			<Button Grid.Row="3" Name="AdvancedButton" Content="Advanced functions..." Command="{Binding AdvancedFiltersCommand}"/>
+			<Button Grid.Row="4" Name="FilterButton" Content="Choose filter..." Command="{Binding PredefinedFiltersCommand}"/>
 		</Grid>
     </Grid>
 </Window>
