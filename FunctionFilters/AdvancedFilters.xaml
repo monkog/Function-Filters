@@ -52,7 +52,7 @@
 		</Grid.RowDefinitions>
 
 		<Label Grid.Column="0" Grid.Row="0" Content="Channel:"/>
-		<ComboBox Grid.Column="1" Grid.Row="0" Name="ChannelComboBox" SelectedIndex="0" FontSize="12" FontWeight="DemiBold">
+		<ComboBox Grid.Column="1" Grid.Row="0" Name="ChannelComboBox" SelectedIndex="0" FontSize="12" FontWeight="DemiBold" SelectionChanged="ChannelComboBox_SelectionChanged">
 			<ComboBoxItem Content="All channels"/>
 			<ComboBoxItem Content="Red channel"/>
 			<ComboBoxItem Content="Green channel"/>

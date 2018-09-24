@@ -2,11 +2,9 @@
 using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using FunctionFilters.Controls;
 using FunctionFilters.Helpers;
 using OxyPlot;
-using Point = System.Windows.Point;
 
 namespace FunctionFilters
 {
@@ -38,18 +36,11 @@ namespace FunctionFilters
             AdvancedFunction.DefaultTrackerTemplate = null;
             _rgbColorsTable = new int[256];
             _selectedIndex = 0;
-            ChannelComboBox.SelectionChanged += ChannelComboBox_SelectionChanged;
         }
 
-        private void OkButton_Click(object sender, RoutedEventArgs e)
+	    private void ApplyFunction()
         {
-            ApplyFunction();
-            Close();
-        }
-
-        private void ApplyFunction()
-        {
-            UpdateColorValuesTables();
+            GenerateColorMap();
 
             Bitmap outputBitmap = new Bitmap(_outputBitmap.Width, _outputBitmap.Height);
 
@@ -100,10 +91,10 @@ namespace FunctionFilters
 	        _owner.OutputPhoto.Background = outputBitmap.CreateImageBrush();
         }
 
-        /// <summary>
+	    /// <summary>
         /// Updates the corresponding R, G, B values from the plot.
         /// </summary>
-        private void UpdateColorValuesTables()
+        private void GenerateColorMap()
         {
             IList<IDataPoint> pointsList = _plotViewModel.Points;
             for (int i = 0; i < pointsList.Count - 1; i++)
@@ -125,12 +116,7 @@ namespace FunctionFilters
             }
         }
 
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void ChannelComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+	    private void ChannelComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (_plotViewModel.Points.Count == 2)
                 return;
@@ -139,5 +125,16 @@ namespace FunctionFilters
             _plotViewModel = new PlotViewModel();
             DataContext = _plotViewModel;
         }
+
+	    private void OkButton_Click(object sender, RoutedEventArgs e)
+	    {
+		    ApplyFunction();
+		    Close();
+	    }
+
+	    private void CancelButton_Click(object sender, RoutedEventArgs e)
+	    {
+		    Close();
+	    }
     }
 }
