@@ -3,8 +3,7 @@ using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Filters;
-using Filters.MVVM;
+using FunctionFilters.Controls;
 using FunctionFilters.Helpers;
 using OxyPlot;
 using Point = System.Windows.Point;
@@ -17,7 +16,7 @@ namespace FunctionFilters
     public partial class AdvancedFilters
     {
 	    private readonly MainWindow _owner;
-	    private ViewModel _viewModel;
+	    private PlotViewModel _plotViewModel;
         private int[] _rgbColorsTable;
         private int _selectedIndex;
         private Bitmap _outputBitmap;
@@ -31,8 +30,8 @@ namespace FunctionFilters
 
         private void AdvancedFilters_Loaded(object sender, RoutedEventArgs e)
         {
-            _viewModel = new ViewModel();
-            DataContext = _viewModel;
+            _plotViewModel = new PlotViewModel();
+            DataContext = _plotViewModel;
 			
             _outputBitmap = new Bitmap(_owner.SourceBitmap);
 
@@ -40,14 +39,6 @@ namespace FunctionFilters
             _rgbColorsTable = new int[256];
             _selectedIndex = 0;
             ChannelComboBox.SelectionChanged += ChannelComboBox_SelectionChanged;
-            AdvancedFunction.MouseDown += AdvancedFunctionMouseDown;
-        }
-
-        void AdvancedFunctionMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            Point point = Mouse.GetPosition(AdvancedFunction);
-            _viewModel.CurrentLineSeries.Points.Add(new DataPoint(point.X, point.Y));
-            _viewModel.UpdateModel();
         }
 
         private void OkButton_Click(object sender, RoutedEventArgs e)
@@ -114,7 +105,7 @@ namespace FunctionFilters
         /// </summary>
         private void UpdateColorValuesTables()
         {
-            IList<IDataPoint> pointsList = _viewModel.GetPoints();
+            IList<IDataPoint> pointsList = _plotViewModel.Points;
             for (int i = 0; i < pointsList.Count - 1; i++)
             {
                 // y = ax + b
@@ -141,12 +132,12 @@ namespace FunctionFilters
 
         private void ChannelComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (_viewModel.CurrentLineSeries.Points.Count == 2)
+            if (_plotViewModel.Points.Count == 2)
                 return;
 
             ApplyFunction();
-            _viewModel = new ViewModel();
-            DataContext = _viewModel;
+            _plotViewModel = new PlotViewModel();
+            DataContext = _plotViewModel;
         }
     }
 }

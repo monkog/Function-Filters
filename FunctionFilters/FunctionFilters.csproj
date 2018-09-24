@@ -98,7 +98,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MVVM\ViewModel.cs" />
+    <Compile Include="Controls\PlotViewModel.cs" />
     <Compile Include="PredefinedFilters.xaml.cs">
       <DependentUpon>PredefinedFilters.xaml</DependentUpon>
     </Compile>
