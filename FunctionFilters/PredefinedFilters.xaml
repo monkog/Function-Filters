@@ -1,7 +1,6 @@
 ﻿<Window x:Class="FunctionFilters.PredefinedFilters"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:filters="clr-namespace:Filters"
         xmlns:functionFilters="clr-namespace:FunctionFilters"
         Title="Choose a filter" Height="500" Width="500" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
 	<Window.Resources>

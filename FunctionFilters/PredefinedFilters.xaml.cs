@@ -10,11 +10,11 @@ namespace FunctionFilters
 	[ExcludeFromCodeCoverage]
 	public partial class PredefinedFilters
 	{
-		private readonly FunctionFilters.MainWindow _owner;
+		private readonly MainWindow _owner;
 
 		public ICommand FilterCommand => new RelayCommand<ImageFilter>(ApplyFilter);
 
-		public PredefinedFilters(FunctionFilters.MainWindow owner)
+		public PredefinedFilters(MainWindow owner)
 		{
 			InitializeComponent();
 			Owner = owner;
