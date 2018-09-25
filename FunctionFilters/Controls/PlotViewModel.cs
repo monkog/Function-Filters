@@ -27,7 +27,7 @@ namespace FunctionFilters.Controls
 		/// </summary>
 		public PlotModel PlotModel
 		{
-			get => _plotModel;
+			get { return _plotModel; }
 			set
 			{
 				_plotModel = value;
