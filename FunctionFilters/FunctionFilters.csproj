@@ -84,6 +84,7 @@
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Helpers\RelayCommandT.cs" />
     <Compile Include="ImageFilter.cs" />
+    <Compile Include="ImageManipulators\ColorChannel.cs" />
     <Compile Include="ImageManipulators\ColorReductionManipulator.cs" />
     <Compile Include="ImageManipulators\ImageManipulator.cs" />
     <Compile Include="ImageManipulators\NegationManipulator.cs" />

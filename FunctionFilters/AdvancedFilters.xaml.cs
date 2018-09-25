@@ -1,140 +1,92 @@
-﻿using System.Collections.Generic;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using FunctionFilters.Controls;
 using FunctionFilters.Helpers;
-using OxyPlot;
+using FunctionFilters.ImageManipulators;
 
 namespace FunctionFilters
 {
-    /// <summary>
-    /// Interaction logic for AdvancedFilters.xaml
-    /// </summary>
-    public partial class AdvancedFilters
-    {
-	    private readonly MainWindow _owner;
-	    private PlotViewModel _plotViewModel;
-        private int[] _colorMap;
-        private int _selectedIndex;
-        private Bitmap _outputBitmap;
+	/// <summary>
+	/// Interaction logic for AdvancedFilters.xaml
+	/// </summary>
+	[ExcludeFromCodeCoverage]
+	public partial class AdvancedFilters
+	{
+		private readonly MainWindow _owner;
+		private PlotViewModel _plotViewModel;
+		private Bitmap _outputBitmap;
 
-        public AdvancedFilters(MainWindow owner)
-        {
-	        _owner = owner;
-	        Owner = owner;
-	        InitializeComponent();
-        }
+		public AdvancedFilters(MainWindow owner)
+		{
+			_owner = owner;
+			Owner = owner;
+			_plotViewModel = new PlotViewModel();
+			DataContext = _plotViewModel;
+			_outputBitmap = new Bitmap(_owner.SourceBitmap);
+			InitializeComponent();
+		}
 
-        private void AdvancedFilters_Loaded(object sender, RoutedEventArgs e)
-        {
-            _plotViewModel = new PlotViewModel();
-            DataContext = _plotViewModel;
-			
-            _outputBitmap = new Bitmap(_owner.SourceBitmap);
+		private void AdvancedFilters_Loaded(object sender, RoutedEventArgs e)
+		{
+			AdvancedFunction.DefaultTrackerTemplate = null;
+		}
 
-            AdvancedFunction.DefaultTrackerTemplate = null;
-            _colorMap = new int[256];
-            _selectedIndex = 0;
-        }
+		private void ApplyFunction()
+		{
+			var colorMap = GenerateColorMap();
+			var selectedChannel = (ColorChannel)ChannelComboBox.SelectedItem;
+			var outputBitmap = _outputBitmap.ApplyManipulation(colorMap, selectedChannel);
 
-	    private void ApplyFunction()
-        {
-            GenerateColorMap();
+			_outputBitmap = outputBitmap;
+			_owner.OutputPhoto.Background = outputBitmap.CreateImageBrush();
+		}
 
-            Bitmap outputBitmap = new Bitmap(_outputBitmap.Width, _outputBitmap.Height);
+		private int[] GenerateColorMap()
+		{
+			var colorMap = new int[256];
+			var pointsList = _plotViewModel.Points;
+			for (int i = 0; i < pointsList.Count - 1; i++)
+			{
+				// y = ax + b
+				// y1 = ax1 + b
 
-            switch (_selectedIndex)
-            {
-                case 0:
-                    for (int i = 0; i < outputBitmap.Width; i++)
-                        for (int j = 0; j < outputBitmap.Height; j++)
-                        {
-                            Color color = _outputBitmap.GetPixel(i, j);
-                            Color newColor = Color.FromArgb(color.A, _colorMap[color.R]
-                                , _colorMap[color.G]
-                                , _colorMap[color.B]);
-                            outputBitmap.SetPixel(i, j, newColor);
-                        }
-                    break;
-                case 1:
-                    for (int i = 0; i < outputBitmap.Width; i++)
-                        for (int j = 0; j < outputBitmap.Height; j++)
-                        {
-                            Color color = _outputBitmap.GetPixel(i, j);
-                            Color newColor = Color.FromArgb(color.A, _colorMap[color.R], color.G, color.B);
-                            outputBitmap.SetPixel(i, j, newColor);
-                        }
-                    break;
-                case 2:
-                    for (int i = 0; i < outputBitmap.Width; i++)
-                        for (int j = 0; j < outputBitmap.Height; j++)
-                        {
-                            Color color = _outputBitmap.GetPixel(i, j);
-                            Color newColor = Color.FromArgb(color.A, color.R, _colorMap[color.G], color.B);
-                            outputBitmap.SetPixel(i, j, newColor);
-                        }
-                    break;
-                case 3:
-                    for (int i = 0; i < outputBitmap.Width; i++)
-                        for (int j = 0; j < outputBitmap.Height; j++)
-                        {
-                            Color color = _outputBitmap.GetPixel(i, j);
-                            Color newColor = Color.FromArgb(color.A, color.R, color.G, _colorMap[color.B]);
-                            outputBitmap.SetPixel(i, j, newColor);
-                        }
-                    break;
-            }
+				// y - ax = y1 - ax1
+				// a = (y1 - y)/(x1 - x)
+				// b = y - a * x
 
-            _selectedIndex = ChannelComboBox.SelectedIndex;
-            _outputBitmap = outputBitmap;
-	        _owner.OutputPhoto.Background = outputBitmap.CreateImageBrush();
-        }
+				double a = (pointsList[i + 1].Y - pointsList[i].Y) / (pointsList[i + 1].X - pointsList[i].X);
+				double b = pointsList[i].Y - a * pointsList[i].X;
 
-	    /// <summary>
-        /// Updates the corresponding R, G, B values from the plot.
-        /// </summary>
-        private void GenerateColorMap()
-        {
-            IList<IDataPoint> pointsList = _plotViewModel.Points;
-            for (int i = 0; i < pointsList.Count - 1; i++)
-            {
-                // y = ax + b
-                // y1 = ax1 + b
+				for (int j = (int)pointsList[i].X; j <= (int)pointsList[i + 1].X; j++)
+				{
+					colorMap[j] = (a * j + b).ToRgb();
+				}
+			}
 
-                // y - ax = y1 - ax1
-                // a = (y1 - y)/(x1 - x)
-                // b = y - a * x
+			return colorMap;
+		}
 
-                double a = (pointsList[i + 1].Y - pointsList[i].Y) / (pointsList[i + 1].X - pointsList[i].X);
-                double b = pointsList[i].Y - a * pointsList[i].X;
+		private void ChannelComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			if (_plotViewModel.Points.Count == 2)
+				return;
 
-                for (int j = (int)pointsList[i].X; j <= (int)pointsList[i + 1].X; j++)
-                {
-                    _colorMap[j] = (a * j + b).ToRgb();
-                }
-            }
-        }
+			ApplyFunction();
+			_plotViewModel = new PlotViewModel();
+			DataContext = _plotViewModel;
+		}
 
-	    private void ChannelComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (_plotViewModel.Points.Count == 2)
-                return;
+		private void OkButton_Click(object sender, RoutedEventArgs e)
+		{
+			ApplyFunction();
+			Close();
+		}
 
-            ApplyFunction();
-            _plotViewModel = new PlotViewModel();
-            DataContext = _plotViewModel;
-        }
-
-	    private void OkButton_Click(object sender, RoutedEventArgs e)
-	    {
-		    ApplyFunction();
-		    Close();
-	    }
-
-	    private void CancelButton_Click(object sender, RoutedEventArgs e)
-	    {
-		    Close();
-	    }
-    }
+		private void CancelButton_Click(object sender, RoutedEventArgs e)
+		{
+			Close();
+		}
+	}
 }

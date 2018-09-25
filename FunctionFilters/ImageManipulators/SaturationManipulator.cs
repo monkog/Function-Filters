@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows.Media;
+using FunctionFilters.Helpers;
 
 namespace FunctionFilters.ImageManipulators
 {
@@ -30,7 +31,7 @@ namespace FunctionFilters.ImageManipulators
 		/// </summary>
 		public static ImageBrush MixColors(this Bitmap source)
 		{
-			return source.ApplyManipulation(ColorMap);
+			return source.ApplyManipulation(ColorMap, ColorChannel.All).CreateImageBrush();
 		}
 	}
 }
