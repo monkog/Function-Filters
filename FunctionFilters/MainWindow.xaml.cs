@@ -18,7 +18,7 @@ namespace FunctionFilters
 	public partial class MainWindow
 	{
 		public Bitmap SourceBitmap;
-		readonly ImageBrush _whiteSmokeBitmap;
+		private readonly ImageBrush _whiteSmokeBitmap;
 
 		public ImageFilter Filter { get; set; }
 

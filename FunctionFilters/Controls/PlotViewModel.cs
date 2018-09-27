@@ -38,13 +38,13 @@ namespace FunctionFilters.Controls
 		public PlotViewModel()
 		{
 			_isMouseMoving = false;
-			PlotModel = new PlotModel();
+			_plotModel = new PlotModel();
 			_currentLineSeries = InitializeLineSeries();
 
-			PlotModel.Series.Add(_currentLineSeries);
-			PlotModel.MouseDown += Plot_MouseDown;
-			PlotModel.MouseMove += Plot_MouseMove;
-			PlotModel.MouseUp += Plot_MouseUp;
+			_plotModel.Series.Add(_currentLineSeries);
+			_plotModel.MouseDown += Plot_MouseDown;
+			_plotModel.MouseMove += Plot_MouseMove;
+			_plotModel.MouseUp += Plot_MouseUp;
 		}
 
 		/// <summary>

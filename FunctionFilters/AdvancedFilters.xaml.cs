@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,7 +13,7 @@ namespace FunctionFilters
 	/// Interaction logic for AdvancedFilters.xaml
 	/// </summary>
 	[ExcludeFromCodeCoverage]
-	public partial class AdvancedFilters
+	public sealed partial class AdvancedFilters : IDisposable
 	{
 		private readonly MainWindow _owner;
 		private PlotViewModel _plotViewModel;
@@ -26,6 +27,11 @@ namespace FunctionFilters
 			DataContext = _plotViewModel;
 			_outputBitmap = new Bitmap(_owner.SourceBitmap);
 			InitializeComponent();
+		}
+
+		public void Dispose()
+		{
+			_outputBitmap.Dispose();
 		}
 
 		private void AdvancedFilters_Loaded(object sender, RoutedEventArgs e)

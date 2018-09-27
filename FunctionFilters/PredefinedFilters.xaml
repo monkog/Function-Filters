@@ -15,11 +15,11 @@
 	</Window.Resources>
 	<Grid>
 		<Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FF838383" Offset="0"/>
-                <GradientStop Color="#FFCDCDCD" Offset="1"/>
-            </LinearGradientBrush>
-        </Grid.Background>
+			<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+				<GradientStop Color="#FF838383" Offset="0"/>
+				<GradientStop Color="#FFCDCDCD" Offset="1"/>
+			</LinearGradientBrush>
+		</Grid.Background>
 
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition/>
@@ -31,28 +31,28 @@
 		</Grid.RowDefinitions>
 
 		<Button Grid.Column="0" Grid.Row="0" Command="{Binding FilterCommand}" CommandParameter="{x:Static functionFilters:ImageFilter.Negate}">
-            <Canvas Width="200" Height="200">
-                <Canvas Name="NegateCanvas" Width="145" Height="145" Canvas.Left="25"/>
-                <TextBlock Text="Negative" Canvas.Left="34" Canvas.Top="150"/>
-            </Canvas>
-        </Button>
+			<Canvas Width="200" Height="200">
+				<Canvas Name="NegateCanvas" Width="145" Height="145" Canvas.Left="25"/>
+				<TextBlock Text="Negative" Canvas.Left="34" Canvas.Top="150"/>
+			</Canvas>
+		</Button>
 		<Button Grid.Column="1" Grid.Row="0" Command="{Binding FilterCommand}" CommandParameter="{x:Static functionFilters:ImageFilter.Poster}">
-            <Canvas Width="200" Height="200">
-                <Canvas Name="PosterCanvas" Width="145" Height="145" Canvas.Left="25"/>
-                <TextBlock Text="Poster" Canvas.Left="57" Canvas.Top="150"/>
-            </Canvas>
-        </Button>
+			<Canvas Width="200" Height="200">
+				<Canvas Name="PosterCanvas" Width="145" Height="145" Canvas.Left="25"/>
+				<TextBlock Text="Poster" Canvas.Left="57" Canvas.Top="150"/>
+			</Canvas>
+		</Button>
 		<Button Grid.Column="0" Grid.Row="1" Command="{Binding FilterCommand}" CommandParameter="{x:Static functionFilters:ImageFilter.ColorMix}">
-            <Canvas Width="200" Height="200">
-                <Canvas Name="ColorMixCanvas" Width="145" Height="145" Canvas.Left="25"/>
-                <TextBlock Text="Color mix" Canvas.Left="28" Canvas.Top="150"/>
-            </Canvas>
-        </Button>
+			<Canvas Width="200" Height="200">
+				<Canvas Name="ColorMixCanvas" Width="145" Height="145" Canvas.Left="25"/>
+				<TextBlock Text="Color mix" Canvas.Left="28" Canvas.Top="150"/>
+			</Canvas>
+		</Button>
 		<Button Grid.Column="1" Grid.Row="1" Command="{Binding FilterCommand}" CommandParameter="{x:Static functionFilters:ImageFilter.ColorDots}">
-            <Canvas Width="200" Height="200">
-                <Canvas Name="ColorDotsCanvas" Width="145" Height="145" Canvas.Left="25"/>
-                <TextBlock Text="Color dots" Canvas.Left="25" Canvas.Top="150"/>
-            </Canvas>
-        </Button>
-    </Grid>
+			<Canvas Width="200" Height="200">
+				<Canvas Name="ColorDotsCanvas" Width="145" Height="145" Canvas.Left="25"/>
+				<TextBlock Text="Color dots" Canvas.Left="25" Canvas.Top="150"/>
+			</Canvas>
+		</Button>
+	</Grid>
 </Window>

@@ -45,6 +45,5 @@ namespace FunctionFilters.Helpers
 				return new Bitmap(bitmap);
 			}
 		}
-
 	}
 }

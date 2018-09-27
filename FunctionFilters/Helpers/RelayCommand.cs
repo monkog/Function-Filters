@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Input;
 
 namespace FunctionFilters.Helpers
@@ -17,7 +18,12 @@ namespace FunctionFilters.Helpers
 			return true;
 		}
 
-		public event EventHandler CanExecuteChanged;
+		[ExcludeFromCodeCoverage]
+		public event EventHandler CanExecuteChanged
+		{
+			add { }
+			remove { }
+		}
 
 		public void Execute(object parameter)
 		{

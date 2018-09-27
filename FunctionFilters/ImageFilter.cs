@@ -8,7 +8,6 @@
 		Negate,
 		Poster,
 		ColorMix,
-		ColorDots,
-		Custom
+		ColorDots
 	}
 }
